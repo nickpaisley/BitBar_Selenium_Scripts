@@ -22,7 +22,8 @@ files = {
 #response = httpx.post('https://cloud.bitbar.com/api/v2/device-sessions/7288525/output-file-set/files?name=home.png', headers=headers, files=files)
 
 # this request works with the apiKey because of the 'me'...WHY!?!??!
-response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/7288525/output-file-set/files?name=home.png', files=files, auth=(apiKey, ''))
+#response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/7288525/output-file-set/files?name=home.png', files=files, auth=(apiKey, ''))
+response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/7288525/output-file-set/files', params=params, files=files, auth=(apiKey, ''))
 
 
 
