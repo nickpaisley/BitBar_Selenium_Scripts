@@ -31,12 +31,12 @@ Most of the Code examples and talking points for conversion are in reference to 
  
 
 Now that you have your BitBar API Key, let's alter the original Authkey variable with our new BitBar API key located at line 18 in the CrossBrowserTesting sample script. This step is for connection to the BitBar API for processes such as taking screenshots and setting the status of your tests.
-
+```
 # Old CrossBrowser Testing Sample Authkey Variable
     self.authkey  = "<"CrossBrowserTesting Authkey">"
 # New Bitbar API Key Variable
     self.apiKey = "<"insert your BitBar API Key here">"
- 
+``` 
 
 Note that we also pass the BitBar API Key along with the Capabilities;
 ```
