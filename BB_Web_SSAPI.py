@@ -17,7 +17,7 @@ class BasicTest(unittest.TestCase):
 
         #get rid of the old way of doing auth with just an API key
         
-        self.apiKey = '0T6G9yS3m7hc69v6XYKJkyveHwR7Kev6'
+        self.apiKey = ''
 
         self.api_session = requests.Session()
 
@@ -33,7 +33,7 @@ class BasicTest(unittest.TestCase):
 
         #old platformName has been split into platformName and osVersion
         capabilities = {
-        'bitbar_apiKey': '0T6G9yS3m7hc69v6XYKJkyveHwR7Kev6',
+        'bitbar_apiKey': '',
         'platform': 'Linux',
         'osVersion': '18.04',
         'browserName': 'firefox',
