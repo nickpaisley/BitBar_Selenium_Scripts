@@ -39,7 +39,7 @@ Now that you have your BitBar API Key, let's alter the original Authkey variable
  
 
 Note that we also pass the BitBar API Key along with the Capabilities;
-
+```
 capabilities = {
 	'platform': 'Windows',
 	'osVersion': '11',
@@ -48,7 +48,7 @@ capabilities = {
 	'resolution': '1920x1080',
 	'bitbar_apiKey': '<insert your BitBar API key here>',
 }
- 
+```
 
 With BitBar we now have four Selenium hub options to chose from. Both US and EU Selenium hubs are available to aid in performance for your location. Separate hubs are also provided depending on the type of device (Desktop vs Mobile) you wish to test against.  You may pick the applicable Desktop or Mobile hub closest to your location and replace your existing hub with the updated URL;
 
