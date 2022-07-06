@@ -60,7 +60,7 @@ BitBar Mobile Selenium Hubs;
     EU:MOBILE: https://eu-mobile-hub.bitbar.com/wd/hub
  
 
-# start the remote browser on our server
+start the remote browser on our server
       self.driver = webdriver.Remote
           desired_capabilities=capabilities
           command_executor="https://us-west-desktop-hub.bitbar.com/wd/hub"
