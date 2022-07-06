@@ -1,6 +1,8 @@
 import requests
 import httpx
 
+
+
 apiKey = '0T6G9yS3m7hc69v6XYKJkyveHwR7Kev6'
 headers = {
     'accept': '*/*',
@@ -8,11 +10,9 @@ headers = {
     # requests won't add a boundary if this header is set when you pass files=
     #'Content-Type': 'multipart/form-data',
 }
-
 params = {
     'name': 'home.png',
 }
-
 files = {
     #'file': open('home.png;type=image/png', 'rb'),
     'file': open('home.png', 'rb'),
@@ -23,8 +23,13 @@ files = {
 
 # this request works with the apiKey because of the 'me'...WHY!?!??!
 #response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/7288525/output-file-set/files?name=home.png', files=files, auth=(apiKey, ''))
-response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/7288525/output-file-set/files', params=params, files=files, auth=(apiKey, ''))
-
+response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/7308327/output-file-set/files', params=params, files=files, auth=(apiKey, ''))
+if response.status_code == 201:
+    print("Screenshot Uploaded Successfully!")
+else:
+    print("Woops, something went wrong uploading the screenshot.")
 
 
 print('response', response)
+print('httpx response code', response.status_code)
+print( response.status_code == 201)

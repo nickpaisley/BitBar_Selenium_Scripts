@@ -27,10 +27,6 @@ class BasicTest(unittest.TestCase):
 
         self.screenshotName1 = 'SS1.png'
 
-        self.deviceRunID = ""
-        self.projectID = ""
-        self.RunId = ""
-
         #old platformName has been split into platformName and osVersion
         capabilities = {
         'bitbar_apiKey': '0T6G9yS3m7hc69v6XYKJkyveHwR7Kev6',
@@ -81,41 +77,50 @@ class BasicTest(unittest.TestCase):
             # change fail to FAILED
             self.test_result = 'FAILED'
             raise
-           
+    def uploadScreenshot(self):
+
+            params = {
+                'name': self.screenshotName1,
+            }
+            files = {
+                #'file': open('home.png;type=image/png', 'rb'),
+                'file': open(self.screenshot_dir + '/' + self.screenshotName1, 'rb'),
+            }
+
+            # this request works, but I have to use Basic auth with that wierd key I came up with
+            #response = httpx.post('https://cloud.bitbar.com/api/v2/device-sessions/7288525/output-file-set/files?name=home.png', headers=headers, files=files)
+            print("Uploading our Screenshot!")
+            # this request works with the apiKey because of the 'me'...WHY!?!??!
+            #response = httpx.post('https://cloud.bitbar.com/api/v2/me/device-sessions/' + deviceRunID + '/output-file-set/files', params=params, files=files, auth=(self.apiKey, ''))
+            response = httpx.post('https://cloud.bitbar.com/api/v2/me/projects/' + projectID + '/runs/' + RunId + '/device-sessions/' + deviceRunID + 
+            '/output-file-set/files', params=params, files=files, auth=(self.apiKey, ''))
+            
+            if response.status_code == 201:
+                print("Screenshot Uploaded Successfully!")
+            else:
+               print("Whoops, something went wrong uploading the screenshot.")
 
     def tearDown(self):
         print("Done with session %s" % self.driver.session_id)
         if self.test_result is not None:
             #get all necessary IDs of current session
             response = requests.get('https://us-west-desktop-hub.bitbar.com/sessions/' + self.driver.session_id, auth=(self.apiKey, '')).json()
-            self.deviceRunID = str(response["deviceRunId"])
-            self.projectID = str(response["projectId"])
-            self.RunId = str(response["testRunId"])
+            deviceRunID = str(response["deviceRunId"])
+            projectID = str(response["projectId"])
+            RunId = str(response["testRunId"])
 
             # Here we make the api call to set the test's score
-            requests.post('https://cloud.bitbar.com/api/v2/me/projects/' + self.projectID + '/runs/' +
-            self.RunId + '/device-sessions/' + self.deviceRunID, params={'state': self.test_result},
+            requests.post('https://cloud.bitbar.com/api/v2/me/projects/' + projectID + '/runs/' +
+            RunId + '/device-sessions/' + deviceRunID, params={'state': self.test_result},
             auth=(self.apiKey, ''))
 
-            # let's take our locally saved screenshot and push it back to BitBar!
-            # First we start by declaring the 'params' and 'files' variables to hold our Screenshot name and location.
-            params = {
-                'name': self.screenshotName1,
-            }
-            files = {
-                'file': open(self.screenshot_dir + '/' + self.screenshotName1, 'rb'),
-            }
-
-            # Now we build out our API call to push our locally saved screenshot back to our BitBar Project
-            print("Uploading our Screenshot")
-            response = httpx.post('https://cloud.bitbar.com/api/v2/me/projects/' + self.projectID + '/runs/' + self.RunId + '/device-sessions/' + self.deviceRunID + 
-            '/output-file-set/files', params=params, files=files, auth=(self.apiKey, ''))
-            
-            # Here we check that our upload was successfull
-            if response.status_code == 201:
-                print("Screenshot Uploaded Successfully")
-            else:
-                print("Whoops, something went wrong uploading the screenshot.")
+            # let's take our locally saved screenshot and push it back to BB
+            # headers = {
+            # 'accept': '*/*',
+            # 'authorization': 'Basic MFQ2Rzl5UzNtN2hjNjl2NlhZS0preXZlSHdSN0tldjY6',
+            # # requests won't add a boundary if this header is set when you pass files=
+            # #'Content-Type': 'multipart/form-data',
+            # }
             
 
         
