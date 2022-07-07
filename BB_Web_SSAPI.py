@@ -15,8 +15,7 @@ import httpx
 class BasicTest(unittest.TestCase):
     def setUp(self):
 
-        #get rid of the old way of doing auth with just an API key
-        
+        # Here we swap out our CBT Authkey with the BitBar API key
         self.apiKey = ''
 
         self.api_session = requests.Session()
@@ -31,7 +30,7 @@ class BasicTest(unittest.TestCase):
         self.projectID = ""
         self.RunId = ""
 
-        #old platformName has been split into platformName and osVersion
+        # old platformName has been split into platformName and osVersion
         capabilities = {
         'bitbar_apiKey': '',
         'platform': 'Linux',
