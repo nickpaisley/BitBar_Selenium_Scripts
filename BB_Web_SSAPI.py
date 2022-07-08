@@ -30,7 +30,8 @@ class BasicTest(unittest.TestCase):
         self.projectID = ""
         self.RunId = ""
 
-        # old platformName has been split into platformName and osVersion
+        # old platformName has been split into 'platform' and 'osVersion'
+        # NOTE - The 'record_video' capability is no longer supported as BitBar creates videos automatically for each session.
         capabilities = {
         'bitbar_apiKey': '',
         'platform': 'Linux',
